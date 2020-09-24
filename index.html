@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="style.css" <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <title>Find Your Weather Now</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Weather Dashboard </h1>
+  </header>
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <!-- Row 1 -->
+    <div class="row">
+
+      <div class="col-md-6">
+        <!-- Button triggers new weather forcast to be added -->
+        <div class="row ">
+          <div class="col-md-4 " style="text-align: center;">
+            Search for a City&#58;
+          </div>
+
+          <input type="text" class="col-md-7 " style="text-align: left;" id="weatherFinder">
+
+          <div class="col-md-1 " style="text-align: center;" id="update">
+            <button type="button" class="btn btn-primary">?</button>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+
+      <div class="col-md-1">
+
+      </div>
+
+      <!-- Weather results will get dumped Here -->
+
+      <div class="col-md-5" id="weatherResults">
+
+      </div>
+
+    </div>
+
+
+    <!-- Row 2 -->
+    <!-- Past weather searches will get dumped Here -->
+    <div class="row">
+      <div class="col-md-4" id="weatherHistory">
+
+      </div>
+
+      <!-- 5 Day forecast will get dumped Here -->
+      <div class="col-md-8" id=weatherForecast>
+
+      </div>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script src="script.js"></script>
+
+  </div>
+</body>
+
+</html>
