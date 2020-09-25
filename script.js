@@ -1,43 +1,88 @@
-let container = $("#weather-forecast")
-
-const cityInput = document.getElementById("weatherFinder");
-const updateBTN = document.getElementById("update");
-
-// displayweatherInfo function re-renders the HTML to display the appropriate content
-function displayWeatherInfo() {
-    console.log("line8")
-
-   // let city = $(this).attr("data-name");
-   const city = cityInput.value
-    let queryURL = "api.openweathermap.org" + city + "&APPID=80717ebb3855271ef75979a7da80f371";
-
-    // Creates AJAX call for the specific movie button being clicked
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response)
-
-        let newDiv = $("<div>").prependTo(container)
-
-        let cityName = $("<h1>").appendTo(newDiv)
-        cityName.text(response.Name)
-
-        let cityTempature = $("<p>").appendTo(newDiv)
-        cityTempature.text("Tempature: " + main.temp)
-
-        let cityHumidity = $("<p>").appendTo(newDiv)
-        cityHumidity.text("Humidity: " + main.humidity)
-
-        let windSpeed = $("<p>").appendTo(newDiv)
-        windSpeed.text("Wind Speed: " + windSpeed.speed)
 
 
-    });
+var todaysDate = moment().format('');
+var searchHistory = [];
+var cityContainer = $("#cityContainer");
+var searchField = $("#enteredCity")
+const nameAndDate = $('#nameAndDate');
+const todaysTemperature = $("#todaysTemperature");
+const todaysHumidity = $("#todaysHumidity");
+const todaysWindSpeed = $("#todaysWindSpeed");
+const todaysUVIndex = $("#todaysUVIndex");
+const forecastList = $("#forecastList");
+var searchButton = $("#searchButton")
+var lastCity = "";
+const apiKey = '0cc03a063f157437f99b33adb6adbed9';
 
-    // Function for displaying weather data
+function getFarenheit (kelvin) {
+    return Math.ceil(((kelvin - 273.15) * 9 / 5) + 32)    
+    }
+
+// ajax call to get today's weather by cityname,lat,long
+function searchCity(cityName) {
+  $.ajax({
+    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + `&appid=${apiKey}`,
+    method: "GET"
+  })
+  .then(function (response) { 
+    console.log(response);
+    
+
+    
+
+    nameAndDate.html(`${response.name} (${moment(response.dt * 1000).format(`MM/DD/YYYY`)})`);
+    todaysTemperature.text("Temperature: " + getFarenheit(response.main.temp));
+    todaysHumidity.text("Humidity: " + response.main.humidity);
+    todaysWindSpeed.text("Windspeed: " + response.wind.speed);
+    
 
 
+
+    // ajax call to get 5 day forecast
+
+    //Function searchCity(cityName) {
+      // $.ajax({
+      //   url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + `&appid=${apiKey}`,
+      //   method: "GET"
+      // })
+      // .then(function (response) { 
+      //   console.log(response);
+    
+      //   forecastList.text(response.forecast);
+
+
+
+    var searchedCity = $('#cityInput')
+      .val()
+      .trim();
+
+    list.push(searchedCity);
+
+    renderCities(list);
+  })
 }
 
-updateBTN.addEventListener("click", displayWeatherInfo) 
+// show weather to user
+function showWeather(event) {
+  event.preventDefault();
+  if (searchField.val().trim() !== "") {
+    lastCity = searchField.val().trim();
+  };
+};
+
+$("#searchButton").click((event) => {
+  event.preventDefault();
+  console.log('button was pressed');
+  let enteredCity = $("#enteredCity").val();
+  searchHistory.push(enteredCity);
+  let historyHTML = '';
+  for (let city of searchHistory) {
+    historyHTML += `
+      <li class="historyItem">${city}</li>
+    `
+  }
+  console.log({ historyHTML })
+  cityContainer.html(historyHTML);
+  searchCity(enteredCity);
+ 
+});

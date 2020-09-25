@@ -25,3 +25,15 @@ h1{
 
 }
 
+#cityContainer {
+  list-style: none;
+}
+
+#todaysWeather {
+  height: 60vh;
+  background-color: #dddddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 1rem;
+}
