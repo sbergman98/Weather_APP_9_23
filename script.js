@@ -21,7 +21,7 @@ function getFarenheit (kelvin) {
 // ajax call to get today's weather by cityname,lat,long
 function searchCity(cityName) {
   $.ajax({
-    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + `&appid=${apiKey}`,
+    url: 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + `&appid=${apiKey}`,
     method: "GET"
   })
   .then(function (response) { 
@@ -40,25 +40,51 @@ function searchCity(cityName) {
 
     // ajax call to get 5 day forecast
 
-    //Function searchCity(cityName) {
-      // $.ajax({
-      //   url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + `&appid=${apiKey}`,
-      //   method: "GET"
-      // })
-      // .then(function (response) { 
-      //   console.log(response);
+    function searchCity(cityName) {
+      $.ajax({
+        url: 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + `&appid=${apiKey}`,
+        method: "GET"
+      })
+      
+
+       .then(function (response) {
+        dailyData = response.list.filter((increment) => increment.dt_txt.slice(11, 13) === '12');
+        let dailyHTML = '';
+        console.log(dailyData)
+        for (let day of dailyData) {
+          dailyHTML += `
+            <li class="forecastDay">
+              <h3>(${moment(day.dt * 1000).format('MM/DD/YYYY')})</h3>
+              <img src="https://openweathermap.org/img/w/${day.weather[0].icon}.png" />
+              <p>Temp: ${getFarenheit(day.main.temp)}</p>
+              <p>Humidity: ${day.main.humidity}</p>
+            </li>
+          `;
+        }
+        console.log(dailyHTML)
+        forecastList.html(dailyHTML);
+      });
+
+
+
+
+
     
-      //   forecastList.text(response.forecast);
+    }
+
+  
 
 
 
-    var searchedCity = $('#cityInput')
+    searchCity(cityName);
+
+    var searchedCity = $('#enteredCity')
       .val()
       .trim();
 
     list.push(searchedCity);
 
-    renderCities(list);
+    //renderCities(list);
   })
 }
 

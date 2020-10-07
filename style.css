@@ -37,3 +37,12 @@ h1{
   justify-content: space-around;
   padding-left: 1rem;
 }
+
+#forecastList {
+ list-style: none;
+ display: flex;
+ justify-content: space-around;
+ font-size: 14px;
+
+}
+
